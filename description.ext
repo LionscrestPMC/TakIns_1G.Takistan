@@ -1,0 +1,121 @@
+author="Hustler (ATCAG)";
+loadScreen="images\load.paa";
+onLoadMission="Search buildings for intel, destroy caches, and eliminate Taliban insurgents in red grid squares!";
+onLoadIntroTime=0;
+onLoadMissionTime=0;
+onLoadName="INSURGENCY: Takistan";
+OverviewTextLocked="Search buildings for intel, destroy caches, and eliminate Taliban insurgents in red grid squares!";
+OverviewPicture="images\load.paa";
+
+enableDebugConsole=1;
+allowFunctionsRecompile=0;
+allowFunctionsLog=0;
+DisabledAI=1;
+joinUnassigned=1;
+disableChannels[]={1,2,3,5,6};
+showGroupIndicator=1;
+respawn=3;
+respawnDialog=0;
+respawnDelay=8;
+respawnOnStart=-1;
+respawnVehicleDelay=120;
+corpseManagerMode=1;
+corpseLimit=15;
+corpseRemovalMinTime=120;
+corpseRemovalMaxTime=900;
+wreckManagerMode=1; 
+wreckLimit=8;
+wreckRemovalMinTime=60;
+wreckRemovalMaxTime=600;
+
+class Header {
+	gameType=COOP;
+	minPlayers=1;
+	maxPlayers=22;
+	playerCountMultipleOf=1;
+};
+
+class Params {
+	class EmtpyLine1 {
+	//paramsArray[0]
+		title = ":: M I S S I O N   S E T T I N G S ::";
+		values[]={0,0};
+		texts[]={ "",""};
+		default = 0;			
+	};
+    class cachesLimit {
+	//paramsArray[1]
+		title = "Number of caches to hunt";
+		values[] = {2,4,6,8,10,12};
+		texts[] = {"2","4","6","8","10","12"};
+		default = 6;
+	};
+	class intelItems {
+	//paramsArray[2]
+		title="Number of INTEL items per town";
+		values[]={1,2,3,4,5,6,7,8};
+		texts[]={"1 - Extreme","2 - Very Hard","3 - Hard","4 - Hard\Medium","5 - Medium","6 - Medium/Easy","7 - Easy","8 - Very Easy"};
+		default=2;
+	};
+	class viewDistance {
+	//paramsArray[3]
+		title="View Distance (in meters)";
+		values[]={750,1000,1200,1600,1800,2000,2500,3000,3500,4000};
+		default=1000;
+	};
+	class noGrass {
+	//paramsArray[4]
+		title="Grass (On/Off)";
+		values[]={48,50};
+		texts[]={"On","Off"};
+		default=48;
+	};
+	class Daytime {
+	//paramsArray[5]
+		title="Time";
+		texts[]={"Dawn","Morning","Noon","Afternoon","Evening","Night"};
+		values[]={5,8,12,14,18,0};
+		default=8;
+		function="BIS_fnc_paramDaytime";
+ 		isGlobal=0;
+	};
+	class Weather {
+	//paramsArray[6]
+		title="Weather";
+		texts[]={"Clear","Partly Cloudy","Cloudy","Storm"};
+		values[]={0,40,55,100};
+		default=40;
+		function="BIS_fnc_paramWeather";
+		isGlobal=0;
+	};
+};
+
+	#include "common\client\BRS\defines.hpp"
+	#include "common\client\BRS\dialogs.hpp"
+	#include "common\client\ATM_airdrop\dialog.hpp"
+	#include "common\client\CAS\casDefine.hpp"
+	#include "common\client\CAS\casMenu.hpp"
+
+class RscTitles {
+	#include "common\client\ais_injury\dialogs\rscTitlesAIS.hpp"
+};
+
+class CfgFunctions {
+    #include "common\server\EPD\EPDcfgFunctions.hpp"
+	#include "common\client\ais_injury\cfgFunctionsAIS.hpp"
+	#include "common\client\vip_cmn\fn\vip_cmn_fnc.hpp"
+	#include "common\client\vip_lit\fn\vip_lit_fnc.hpp"
+};
+
+class CfgSounds
+{
+	#include "common\client\vip_lit\resource\vip_lit_cfgSounds.hpp"
+	sounds[] = {introMusic,adhan,cantDo,shout,Vent,Vent2,Para};
+	class introMusic {name = "introMusic";sound[] = {"common\client\introMusic.ogg", db-8, 1};titles[] = {};};
+	class adhan {name="adhan";sound[]={"common\server\ctp\adhan.ogg", 1.0, 1.0};titles[]={};};
+	class cantDo {name="cantDo";sound[]={"common\client\CAS\cantDo.ogg", 1.0, 1.0};titles[]={};};
+	class shout {name="shout";sound[]={"eos\functions\shout.ogg", 1.0, 1.0};titles[]={};};
+	class Vent {name="Vent";sound[]={"common\client\ATM_airdrop\data\Vent.ogg",db-11,1.0};titles[] = {};};
+	class Vent2 {name="Vent2";sound[]={"common\client\ATM_airdrop\data\Vent2.ogg",db-11,1.0};titles[] = {};};
+	class Para {name="Para";sound[]={"common\client\ATM_airdrop\data\parachute.ogg",db-11,1.0};titles[] = {};};
+};
