@@ -25,7 +25,7 @@ if((!isClass(configFile >> "cfgPatches" >> "ace_common")) &&
 	[] execVM 'common\client\Fatigue.sqf';};
 	
 	
-//Arma 3 Dynamic Grup Manager
+//Arma 3 Dynamic Grups Manager
 ["InitializePlayer",[player]] call BIS_fnc_dynamicGroups;
 [] spawn {
 	sleep 10;
